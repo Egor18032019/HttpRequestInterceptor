@@ -4,9 +4,9 @@
 * Логирование происходит в консоль
 * Уровень логирование настраивается в [application.properties](https://github.com/Egor18032019/HttpRequestInterceptor/blob/main/src/main/resources/application.properties)
 
-**Осталось дописать тесты!!!**
+ 
 
 ```shell
-curl -i -X POST http://localhost:8080/v2/total
+curl -i -X POST http://localhost:8080/api
 ```
  

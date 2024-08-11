@@ -18,9 +18,10 @@ public class HttpLoggingInterceptor implements HandlerInterceptor {
     private StopWatch stopWatch;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         this.stopWatch = new StopWatch();
         this.stopWatch.start(request.getRequestURI());
+
         logger.info("Метод запроса: " + request.getMethod());
         logger.info("URL: " + request.getRequestURI());
         logger.info("Заголовки запроса: " + getHeadersAsString(request));
@@ -36,7 +37,7 @@ public class HttpLoggingInterceptor implements HandlerInterceptor {
 время обработки запроса и т.д.
      */
     @Override //вызывается после завершения полного запроса и создания представления.
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         this.stopWatch.stop();
         logger.info("Время обработки запроса: " + this.stopWatch.prettyPrint());
 
@@ -47,7 +48,7 @@ public class HttpLoggingInterceptor implements HandlerInterceptor {
             HttpServletRequest request,
             HttpServletResponse response,
             Object handler,
-            ModelAndView modelAndView) throws Exception {
+            ModelAndView modelAndView) {
 //        System.out.println("вызывается после выполнения обработчика - то есть ответ сервера");
         logger.info("Заголовки ответа: " + getHeadersAsString(response));
         logger.info("Код ответа: " + response.getStatus());
@@ -67,4 +68,5 @@ public class HttpLoggingInterceptor implements HandlerInterceptor {
                 .map(headerName -> headerName + "=" + response.getHeader(headerName))
                 .collect(Collectors.joining(", "));
     }
+
 }
